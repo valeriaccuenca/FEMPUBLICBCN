@@ -10,21 +10,21 @@ options(max.print=1000000)
 ####2. definimos las carpetas con las que trabajaremos - debemos incluir \\ en vez de \ como separadores####
 ########################
 getwd()
-mainData <- "C:\\Users\\valer\\Documents\\Máster SP\\Segundo curso\\TFM\\Data Cleaning"
-outputs <- "C:\\Users\\valer\\Documents\\Máster SP\\Segundo curso\\TFM\\Data Cleaning"
+mainData <- "C:\\Users\\valer\\Documents\\MÃ¡ster SP\\Segundo curso\\TFM\\Data Cleaning"
+outputs <- "C:\\Users\\valer\\Documents\\MÃ¡ster SP\\Segundo curso\\TFM\\Data Cleaning"
 #1.1. Le indicamos a R donde tenemos este archivo utilizando los objetos que hemos definido en 1.
 setwd(mainData)
 getwd()
 #1.2. Abrimos el archivo excel
-#install.packages("readxl") #esto solo debe correrse la primera vez que se quiere instalar este paquete. Después de haberlo instalado podeis colocar "#" delante de esta linea
+#install.packages("readxl") #esto solo debe correrse la primera vez que se quiere instalar este paquete. DespuÃ©s de haberlo instalado podeis colocar "#" delante de esta linea
 ##install.packages("readxl")
 library(readxl)
-## Español
-dbSpanish<-as.data.frame(read_excel("FEMPUBLICBCN_-_ESPAÑOL_clean.xlsx"))  
-## Inglés
+## EspaÃ±ol
+dbSpanish<-as.data.frame(read_excel("FEMPUBLICBCN_-_ESPAÃ‘OL_clean.xlsx"))  
+## InglÃ©s
 dbEnglish<-as.data.frame(read_excel("FEMPUBLICBCN_-_ENGLISH_final_version.xlsx"))  
-## Clone Español
-dbSpanishClone<-as.data.frame(read_excel("Clone_of_FEMPUBLICBCN_-_ESPAÑOL_final_version.xlsx"))  
+## Clone EspaÃ±ol
+dbSpanishClone<-as.data.frame(read_excel("Clone_of_FEMPUBLICBCN_-_ESPAÃ‘OL_final_version.xlsx"))  
 ## Catalan
 dbCatalan<-as.data.frame(read_excel("FEMPUBLICBCN_-_CATALAN_final_version.xlsx"))  
 
@@ -37,21 +37,21 @@ dbCatalan<-as.data.frame(read_excel("FEMPUBLICBCN_-_CATALAN_final_version.xlsx")
 ##*Cambios visitas A, B, C, D
 ##*Cambios cambios tiempo A, B, C, D
 ##*Cambios actividades (?)
-##*ANTES Y DESPUÉS PARA TODAS LAS SIGUIENTES
-##*Servicios, echen, desalojen, delincuencia, ricos, redes, comunidad, fuera, renovación, no bienvenido
+##*ANTES Y DESPUÃ‰S PARA TODAS LAS SIGUIENTES
+##*Servicios, echen, desalojen, delincuencia, ricos, redes, comunidad, fuera, renovaciÃ³n, no bienvenido
 ##*Turistas, hoteles
 ##*Cuidados
 ##*Salud
-##*Concentrarse, sueño, papel, decisiones, tensión, superar, disfrutar, problemas, deprimida, confianza, valer, feliz
+##*Concentrarse, sueÃ±o, papel, decisiones, tensiÃ³n, superar, disfrutar, problemas, deprimida, confianza, valer, feliz
 ##*Dormir
-##*Género (no hay antes)
+##*GÃ©nero (no hay antes)
 ##*Nacimiento (no hay antes)
 ##*Estudios (no hay antes)
 ##*Monetaria
 ##*Laboral
 ##*
 ####******************************#####
-#######1.2.VAMOS A CREAR UNA BASE DE DATOS JUNTANDO TODAS LAS BASES DE DATOS PERO SOLO DE LAS VARIABLES DE INTERÉS#### 
+#######1.2.VAMOS A CREAR UNA BASE DE DATOS JUNTANDO TODAS LAS BASES DE DATOS PERO SOLO DE LAS VARIABLES DE INTERÃ‰S#### 
 ####******************************#####
 
 
@@ -73,7 +73,7 @@ names(dbSpanish_English) == names(dbCatalan)
 dbSpanish_English_Catalan <- rbind(dbSpanish_English, dbCatalan)
 head(dbSpanish_English_Catalan)
 
-### POR ÚLTIMO, UNIMOS CATSPANGLISH CON SPANISH CLONE
+### POR ÃšLTIMO, UNIMOS CATSPANGLISH CON SPANISH CLONE
 names(dbSpanish_English_Catalan) == names(dbSpanishClone)
 DB_FPBCN <- rbind(dbSpanish_English_Catalan, dbSpanishClone)
 head(DB_FPBCN)
@@ -82,7 +82,7 @@ DB_1 <- DB_FPBCN
 ###1.2.2.Cambiamos las posibles respuestas de las variables####
 #*Es decir, necesitamos que las variables tengan las mismas respuestas
 #*
-#*PRIMERO CHEQUEAMOS CÓMO HAN SIDO GUARDADAS Y DESPUÉS UNIFICAMOS LAS RESPUESTAS
+#*PRIMERO CHEQUEAMOS CÃ“MO HAN SIDO GUARDADAS Y DESPUÃ‰S UNIFICAMOS LAS RESPUESTAS
 #Edad
 table(DB_1$Edad)
 DB_1$Edad[DB_1$Edad=="-75"]<- "75"
@@ -92,15 +92,15 @@ DB_1$Edad[DB_1$Edad=="8"]<- "80"
 table(DB_1$Entrevistador)
 DB_1$Entrevistador[DB_1$Entrevistador=="Hanne\r\n"]<- "Hanne"
 DB_1$Entrevistador[DB_1$Entrevistador=="Sarah\r\n"]<- "Sarah"
-DB_1$Entrevistador[DB_1$Entrevistador=="María\r\n"]<- "Maria"
-DB_1$Entrevistador[DB_1$Entrevistador=="María"]<- "Maria"
+DB_1$Entrevistador[DB_1$Entrevistador=="MarÃ­a\r\n"]<- "Maria"
+DB_1$Entrevistador[DB_1$Entrevistador=="MarÃ­a"]<- "Maria"
 ## BARRIO
 table(DB_1$Barrio)
 DB_1$Barrio[DB_1$Barrio=="Sant_Antoni"]<- "Sant Antoni"
 DB_1$Barrio[DB_1$Barrio=="sant_antoni"]<- "Sant Antoni"
 DB_1$Barrio[DB_1$Barrio=="barceloneta"]<- "Barceloneta"
 
-####### CAMBIO DEL USO DEL ESPACIO PÚBLICO #####
+####### CAMBIO DEL USO DEL ESPACIO PÃšBLICO #####
 
 ##### CAMBIO EN VISITAS #####
 
@@ -109,12 +109,12 @@ table(DB_1$Cambios_visitas_A)
 #Disminuido mucho
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="Ha disminuido  mucho"] <- "Disminuido mucho"
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_visitas_A[DB_1$Cambios_visitas_A=="No ha canviat"] <- "No cambio"
@@ -138,12 +138,12 @@ table(DB_1$Cambios_visitas_B)
 #Disminuido mucho
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha disminuido  mucho"] <- "Disminuido mucho"
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="No ha canviat"] <- "No cambio"
@@ -163,18 +163,18 @@ DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="Ha augmentat molt"] <- "Aumentad
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="No aplicable"] <- "NA"
 DB_1$Cambios_visitas_B[DB_1$Cambios_visitas_B=="no_aplicable"] <- "NA"
 
-### ESPACIOS A MÁS DE 15 MIN
+### ESPACIOS A MÃS DE 15 MIN
 table(DB_1$Cambios_visitas_C)
 #Disminuido mucho
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="Ha disminuido  mucho"] <- "Disminuido mucho"
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="disminuido_mucho"] <- "Disminuido mucho"
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="ha_disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_visitas_C[DB_1$Cambios_visitas_C=="No ha canviat"] <- "No cambio"
@@ -200,12 +200,12 @@ table(DB_1$Cambios_visitas_D)
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="disminuido_mucho"] <- "Disminuido mucho"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="ha_disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="disminuido"] <- "Disminuido"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="Ha disminuÃ¯t"] <- "Disminuido"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="it_has_decreased"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="No ha cambiado"] <- "No cambio"
@@ -230,7 +230,7 @@ DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="No aplicable"] <- "NA"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="no_aplicable"] <- "NA"
 DB_1$Cambios_visitas_D[DB_1$Cambios_visitas_D=="does_not_apply"] <- "NA"
 
-### COMPROBAMOS QUE ESTÉN TODAS IGUAL
+### COMPROBAMOS QUE ESTÃ‰N TODAS IGUAL
 table(DB_1$Cambios_visitas_A)
 table(DB_1$Cambios_visitas_B)
 table(DB_1$Cambios_visitas_C)
@@ -244,12 +244,12 @@ table(DB_1$Cambios_tiempo_A)
 #Disminuido mucho
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="Ha disminuido  mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_tiempo_A[DB_1$Cambios_tiempo_A=="No ha canviat"] <- "No cambio"
@@ -273,12 +273,12 @@ table(DB_1$Cambios_tiempo_B)
 #Disminuido mucho
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha disminuido  mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="No ha canviat"] <- "No cambio"
@@ -298,18 +298,18 @@ DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="Ha augmentat molt"] <- "Aumentado 
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="No aplicable"] <- "NA"
 DB_1$Cambios_tiempo_B[DB_1$Cambios_tiempo_B=="no_aplicable"] <- "NA"
 
-### ESPACIOS A MÁS DE 15 MIN
+### ESPACIOS A MÃS DE 15 MIN
 table(DB_1$Cambios_tiempo_C)
 #Disminuido mucho
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="Ha disminuido  mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="disminuido_mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="ha_disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_tiempo_C[DB_1$Cambios_tiempo_C=="No ha canviat"] <- "No cambio"
@@ -334,12 +334,12 @@ table(DB_1$Cambios_tiempo_D)
 #Disminuido mucho
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="disminuido"] <- "Disminuido"
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="No ha canviat"] <- "No cambio"
@@ -359,7 +359,7 @@ DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="Ha augmentat molt"] <- "Aumentado 
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="No aplicable"] <- "NA"
 DB_1$Cambios_tiempo_D[DB_1$Cambios_tiempo_D=="no_aplicable"] <- "NA"
 
-### COMPROBAMOS QUE ESTÉN TODAS IGUAL
+### COMPROBAMOS QUE ESTÃ‰N TODAS IGUAL
 table(DB_1$Cambios_tiempo_A)
 table(DB_1$Cambios_tiempo_B)
 table(DB_1$Cambios_tiempo_C)
@@ -372,12 +372,12 @@ table(DB_1$Cambios_picnic)
 #Disminuido mucho
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_picnic[DB_1$Cambios_picnic=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_picnic[DB_1$Cambios_picnic=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="disminuido"] <- "Disminuido"
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_picnic[DB_1$Cambios_picnic=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_picnic[DB_1$Cambios_picnic=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_picnic[DB_1$Cambios_picnic=="No ha canviat"] <- "No cambio"
@@ -406,13 +406,13 @@ table(DB_1$Cambios_pasear)
 #Disminuido mucho
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_pasear[DB_1$Cambios_pasear=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_pasear[DB_1$Cambios_pasear=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="ha_disminuido_mucho"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="disminuido"] <- "Disminuido"
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_pasear[DB_1$Cambios_pasear=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_pasear[DB_1$Cambios_pasear=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_pasear[DB_1$Cambios_pasear=="No ha canviat"] <- "No cambio"
@@ -443,12 +443,12 @@ table(DB_1$Cambios_tranquilidad)
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="disminuido_mucho"] <- "Disminuido mucho"
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="ha_disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="disminuido"] <- "Disminuido"
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_tranquilidad[DB_1$Cambios_tranquilidad=="No ha canviat"] <- "No cambio"
@@ -479,12 +479,12 @@ table(DB_1$Cambios_reunirse)
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="disminuido_mucho"] <- "Disminuido mucho"
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="ha_disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="disminuido"] <- "Disminuido"
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_reunirse[DB_1$Cambios_reunirse=="No ha canviat"] <- "No cambio"
@@ -514,12 +514,12 @@ table(DB_1$Cambios_dependientes)
 #Disminuido mucho
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="ha_disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="disminuido"] <- "Disminuido"
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_dependientes[DB_1$Cambios_dependientes=="No ha canviat"] <- "No cambio"
@@ -546,12 +546,12 @@ table(DB_1$Cambios_jugar)
 #Disminuido mucho
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_jugar[DB_1$Cambios_jugar=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_jugar[DB_1$Cambios_jugar=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="disminuido"] <- "Disminuido"
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_jugar[DB_1$Cambios_jugar=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_jugar[DB_1$Cambios_jugar=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_jugar[DB_1$Cambios_jugar=="No ha canviat"] <- "No cambio"
@@ -579,12 +579,12 @@ table(DB_1$Cambios_estudiar)
 #Disminuido mucho
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="Ha disminuido mucho"] <- "Disminuido mucho"
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="disminuido_mucho"] <- "Disminuido mucho"
-DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="Ha disminuït molt"] <- "Disminuido mucho"
+DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="Ha disminuÃ¯t molt"] <- "Disminuido mucho"
 #Disminuido
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="Ha disminuido"] <- "Disminuido"
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="disminuido"] <- "Disminuido"
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="ha_disminuido"] <- "Disminuido"
-DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="Ha disminuït"] <- "Disminuido"
+DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="Ha disminuÃ¯t"] <- "Disminuido"
 #No cambio
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="No ha cambiado"] <- "No cambio"
 DB_1$Cambios_estudiar[DB_1$Cambios_estudiar=="No ha canviat"] <- "No cambio"
@@ -612,7 +612,7 @@ DB1_1<- DB_1
 
 
 
-##### GENTRIFICACIÓN ANTES
+##### GENTRIFICACIÃ“N ANTES
 ## SERVICIOS
 table(DB_1$Antes_servicios)
 #Muy de acuerdo
@@ -893,7 +893,7 @@ DB_1$Antes_comunidad[DB_1$Antes_comunidad=="no_contesta___no_aplica"]<- 0
 
 DB_1$Antes_comunidad <- as.numeric(DB_1$Antes_comunidad)
 
-#RENOVACIÓN
+#RENOVACIÃ“N
 table(DB_1$Antes_renovacion)
 #Muy de acuerdo
 DB_1$Antes_renovacion[DB_1$Antes_renovacion=="Muy de acuerdo"]<- 5
@@ -935,11 +935,11 @@ DB_1 <- DB_1 %>% dplyr::mutate(Antes_PG = ((Antes_servicios + Antes_ricos + Ante
 head(DB_1[,c("Antes_PG", "Antes_servicios", "Antes_ricos", "Antes_delincuencia", "Antes_renovacion")])
 
 
-#* Por último, sumamos ambas medias para obtener la variable de NCGS
+#* Por Ãºltimo, sumamos ambas medias para obtener la variable de NCGS
 DB_1 <- DB_1 %>% dplyr::mutate(Antes_NCGS = (Antes_ND + Antes_PG))
 head(DB_1[,c("Antes_PG", "Antes_ND", "Antes_NCGS")])
 
-##### GENTRIFICACIÓN AHORA
+##### GENTRIFICACIÃ“N AHORA
 
 ## SERVICIOS
 table(DB_1$Ahora_servicios)
@@ -1221,7 +1221,7 @@ DB_1$Ahora_comunidad[DB_1$Ahora_comunidad=="no_contesta___no_aplica"]<- 0
 
 DB_1$Ahora_comunidad <- as.numeric(DB_1$Ahora_comunidad)
 
-#RENOVACIÓN
+#RENOVACIÃ“N
 table(DB_1$Ahora_renovacion)
 #Muy de acuerdo
 DB_1$Ahora_renovacion[DB_1$Ahora_renovacion=="Muy de acuerdo"]<- 5
@@ -1262,7 +1262,7 @@ DB_1 <- DB_1 %>% dplyr::mutate(Ahora_PG = ((Ahora_servicios + Ahora_ricos + Ahor
 head(DB_1[,c("Ahora_PG", "Ahora_servicios", "Antes_ricos", "Ahora_delincuencia", "Ahora_renovacion")])
 
 
-#* Por último, sumamos ambas medias para obtener la variable de NCGS
+#* Por Ãºltimo, sumamos ambas medias para obtener la variable de NCGS
 DB_1 <- DB_1 %>% dplyr::mutate(Ahora_NCGS = (Ahora_ND + Ahora_PG))
 head(DB_1[,c("Ahora_PG", "Ahora_ND", "Ahora_NCGS")])
 
@@ -1276,28 +1276,28 @@ table(DB_1$Antes_turistas)
 #Aumento drastico
 DB_1$Antes_turistas[DB_1$Antes_turistas=="aumentado_drastica"]<- 5
 DB_1$Antes_turistas[DB_1$Antes_turistas=="hab_a_aumentado_de_forma_dr_stica"]<- 5
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Había aumentado de forma drástica."]<- 5
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia augmentat de forma dràstica."]<- 5
+DB_1$Antes_turistas[DB_1$Antes_turistas=="HabÃ­a aumentado de forma drÃ¡stica."]<- 5
+DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia augmentat de forma drÃ stica."]<- 5
 
 #Aumento
 DB_1$Antes_turistas[DB_1$Antes_turistas=="aumentado"]<- 4
 DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia augmentat."]<- 4
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Había aumentado."]<- 4
+DB_1$Antes_turistas[DB_1$Antes_turistas=="HabÃ­a aumentado."]<- 4
 DB_1$Antes_turistas[DB_1$Antes_turistas=="hab_a_aumentado"]<- 4
 #Mantenido
 DB_1$Antes_turistas[DB_1$Antes_turistas=="mantenido"]<- 3
 DB_1$Antes_turistas[DB_1$Antes_turistas=="S'havia mantingut igual."]<- 3
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Se había mantenido igual."]<- 3
+DB_1$Antes_turistas[DB_1$Antes_turistas=="Se habÃ­a mantenido igual."]<- 3
 DB_1$Antes_turistas[DB_1$Antes_turistas=="se_hab_a_mantenido_igual"]<- 3
-#Disminución
+#DisminuciÃ³n
 DB_1$Antes_turistas[DB_1$Antes_turistas=="disminuido"]<- 2
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Había disminuido."]<- 2
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia disminuït."]<- 2
+DB_1$Antes_turistas[DB_1$Antes_turistas=="HabÃ­a disminuido."]<- 2
+DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia disminuÃ¯t."]<- 2
 DB_1$Antes_turistas[DB_1$Antes_turistas=="hab_a_disminuido"]<- 2
-#Disminución drastica
+#DisminuciÃ³n drastica
 DB_1$Antes_turistas[DB_1$Antes_turistas=="disminuido_drastica"]<- 1
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Había disminuido de forma drástica."]<- 1
-DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia disminuït de forma dràstica."]<- 1
+DB_1$Antes_turistas[DB_1$Antes_turistas=="HabÃ­a disminuido de forma drÃ¡stica."]<- 1
+DB_1$Antes_turistas[DB_1$Antes_turistas=="Havia disminuÃ¯t de forma drÃ stica."]<- 1
 DB_1$Antes_turistas[DB_1$Antes_turistas=="hab_a_disminuido_de_forma_dr_stica"]<- 1
 #No aplica
 DB_1$Antes_turistas[DB_1$Antes_turistas=="No sabe/ No contesta"]<- 0
@@ -1310,8 +1310,8 @@ is.na(DB_1$Antes_turistas)
 table(DB_1$Antes_hoteles)
 #Aumento drastico
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="aumentado_drastica"]<- 5
-DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha augmentat de forma dràstica."]<- 5
-DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha aumentado de forma drástica."]<- 5
+DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha augmentat de forma drÃ stica."]<- 5
+DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha aumentado de forma drÃ¡stica."]<- 5
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="hab_a_aumentado_de_forma_dr_stica"]<- 5
 #Aumento
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="aumentado"]<- 4
@@ -1323,15 +1323,15 @@ DB_1$Antes_hoteles[DB_1$Antes_hoteles=="mantenido"]<- 3
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="S'ha mantingut igual."]<- 3
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Se ha mantenido igual."]<- 3
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="se_hab_a_mantenido_igual"]<- 3
-#Disminución
+#DisminuciÃ³n
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="disminuido"]<- 2
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuido."]<- 2
-DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuït."]<- 2
+DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuÃ¯t."]<- 2
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="hab_a_disminuido"]<- 2
-#Disminución drastica
+#DisminuciÃ³n drastica
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="disminuido_drastica"]<- 1
-DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuido de forma drástica."]<- 1
-DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuït de forma dràstica."]<- 1
+DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuido de forma drÃ¡stica."]<- 1
+DB_1$Antes_hoteles[DB_1$Antes_hoteles=="Ha disminuÃ¯t de forma drÃ stica."]<- 1
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="hab_a_disminuido_de_forma_dr_stica"]<- 1
 #No aplica
 DB_1$Antes_hoteles[DB_1$Antes_hoteles=="No sabe/ No contesta"]<- 0
@@ -1352,8 +1352,8 @@ table(DB_1$Antes_turismo)
 table(DB_1$Ahora_turistas)
 #Aumento drastico
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="aumentado_drastica"]<- 5
-DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha augmentat de forma dràstica."]<- 5
-DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha aumentado de forma drástica."]<- 5
+DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha augmentat de forma drÃ stica."]<- 5
+DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha aumentado de forma drÃ¡stica."]<- 5
 #Aumento
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="aumentado"]<- 4
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha augmentat."]<- 4
@@ -1364,15 +1364,15 @@ DB_1$Ahora_turistas[DB_1$Ahora_turistas=="mantenido"]<- 3
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="S'ha mantingut igual."]<- 3
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Se ha mantenido igual."]<- 3
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="se_hab_a_mantenido_igual"]<- 3
-#Disminución
+#DisminuciÃ³n
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="disminuido"]<- 2
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuido."]<- 2
-DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuït."]<- 2
+DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuÃ¯t."]<- 2
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="hab_a_disminuido"]<- 2
-#Disminución drastica
+#DisminuciÃ³n drastica
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="disminuido_drastica"]<- 1
-DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuido de forma drástica."]<- 1
-DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuït de forma dràstica"]<- 1
+DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuido de forma drÃ¡stica."]<- 1
+DB_1$Ahora_turistas[DB_1$Ahora_turistas=="Ha disminuÃ¯t de forma drÃ stica"]<- 1
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="hab_a_disminuido_de_forma_dr_stica"]<- 1
 #No aplica
 DB_1$Ahora_turistas[DB_1$Ahora_turistas=="No sabe/ No contesta"]<- 0
@@ -1385,8 +1385,8 @@ DB_1$Ahora_turistas <- as.numeric(DB_1$Ahora_turistas)
 table(DB_1$Ahora_hoteles)
 #Aumento drastico
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="aumentado_drastica"]<- 5
-DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha augmentat de forma dràstica."]<- 5
-DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha aumentado de forma drástica."]<- 5
+DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha augmentat de forma drÃ stica."]<- 5
+DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha aumentado de forma drÃ¡stica."]<- 5
 #Aumento
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="aumentado"]<- 4
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha augmentat."]<- 4
@@ -1397,15 +1397,15 @@ DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="mantenido"]<- 3
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="S'ha mantingut igual."]<- 3
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Se ha mantenido igual."]<- 3
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="se_hab_a_mantenido_igual"]<- 3
-#Disminución
+#DisminuciÃ³n
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="disminuido"]<- 2
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuido."]<- 2
-DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuït."]<- 2
+DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuÃ¯t."]<- 2
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="hab_a_disminuido"]<- 2
-#Disminución drastica
+#DisminuciÃ³n drastica
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="disminuido_drastica"]<- 1
-DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuido de forma drástica."]<- 1
-DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuït de forma dràstica"]<- 1
+DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuido de forma drÃ¡stica."]<- 1
+DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="Ha disminuÃ¯t de forma drÃ stica"]<- 1
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="hab_a_disminuido_de_forma_dr_stica"]<- 1
 #No aplica
 DB_1$Ahora_hoteles[DB_1$Ahora_hoteles=="No sabe/ No contesta"]<- 0
@@ -1425,7 +1425,7 @@ DB_3 <- DB_1
 # Antes
 table(DB_1$Antes_salud)
 # Excelente
-DB_1$Antes_salud[DB_1$Antes_salud=="Excel·lent"]<- "Excelente"
+DB_1$Antes_salud[DB_1$Antes_salud=="ExcelÂ·lent"]<- "Excelente"
 DB_1$Antes_salud[DB_1$Antes_salud=="excelente"]<- "Excelente"
 # Muy buena
 DB_1$Antes_salud[DB_1$Antes_salud=="Muy Buena"]<- "Muy buena"
@@ -1454,7 +1454,7 @@ summarytools::freq(DB_1$Antes_salud2)
 # AHORA
 table(DB_1$Ahora_salud)
 # Excelente
-DB_1$Ahora_salud[DB_1$Ahora_salud=="Excel·lent"]<- "Excelente"
+DB_1$Ahora_salud[DB_1$Ahora_salud=="ExcelÂ·lent"]<- "Excelente"
 DB_1$Ahora_salud[DB_1$Ahora_salud=="excelente"]<- "Excelente"
 # Muy buena
 DB_1$Ahora_salud[DB_1$Ahora_salud=="Muy Buena"]<- "Muy buena"
@@ -1485,7 +1485,7 @@ DB_5 <- DB_1
 DB_1 <- DB_5
 
 ## SALUD MENTAL
-# Primero transformamos respuestas según cada pregunta
+# Primero transformamos respuestas segÃºn cada pregunta
 
 # ANTES
 #Concentrarse 
@@ -1503,7 +1503,7 @@ DB_1$Antes_concentrarse[DB_1$Antes_concentrarse=="3__nunca"]<- "3"
 DB_1$Antes_concentrarse[DB_1$Antes_concentrarse=="No contesta / No aplica"]<- "NA"
 DB_1$Antes_concentrarse[DB_1$Antes_concentrarse=="no_contesta___no_aplica"]<- "NA"
 
-#Perder el sueño 
+#Perder el sueÃ±o 
 table(DB_1$Antes_sueno)
 #Siempre
 DB_1$Antes_sueno[DB_1$Antes_sueno=="0 (Sempre)"]<- "0"
@@ -1517,7 +1517,7 @@ DB_1$Antes_sueno[DB_1$Antes_sueno=="3__nunca"]<- "3"
 DB_1$Antes_sueno[DB_1$Antes_sueno=="No contesta / No aplica"]<- "NA"
 DB_1$Antes_sueno[DB_1$Antes_sueno=="no_contesta___no_aplica"]<- "NA"
 
-#Papel útil en la vida
+#Papel Ãºtil en la vida
 table(DB_1$Antes_papel)
 #Siempre
 DB_1$Antes_papel[DB_1$Antes_papel=="0 (Sempre)"]<- "0"
@@ -1545,7 +1545,7 @@ DB_1$Antes_decisiones[DB_1$Antes_decisiones=="3__nunca"]<- "3"
 DB_1$Antes_decisiones[DB_1$Antes_decisiones=="No contesta / No aplica"]<- "NA"
 DB_1$Antes_decisiones[DB_1$Antes_decisiones=="no_contesta___no_aplica"]<- "NA"
 
-#Agobiada y en tensión 
+#Agobiada y en tensiÃ³n 
 table(DB_1$Antes_tension)
 #Siempre
 DB_1$Antes_tension[DB_1$Antes_tension=="0 (Sempre)"]<- "0"
@@ -1659,7 +1659,7 @@ DB_1$Antes_feliz[DB_1$Antes_feliz=="no_contesta___no_aplica"]<- "NA"
 
 #### CONVERTIMOS LAS VARIABLES DE SALUD MENTAL ####
 
-# Primero transformamos respuestas según cada pregunta
+# Primero transformamos respuestas segÃºn cada pregunta
 # si la pregunta es positiva, 0 y 1 (siempre, casi siempre) son un 0; 2 y 3 (muy poco, nunca) son un 1
 # si la preugnta es negativa, 0 y 1 (siempre, casi siempre) son un 1; 2 y 3 (muy poco, nunca) son un 0
 
@@ -1672,7 +1672,7 @@ DB_1$Antes_concentrarse[DB_1$Antes_concentrarse=="NA"]<- NA
 
 DB_1$Antes_concentrarse <- as.numeric(DB_1$Antes_concentrarse)
 
-#* sueño = negativo
+#* sueÃ±o = negativo
 table(DB_1$Antes_sueno)
 DB_1$Antes_sueno[DB_1$Antes_sueno=="0"]<- "1"
 DB_1$Antes_sueno[DB_1$Antes_sueno=="2"]<- "0"
@@ -1795,7 +1795,7 @@ DB_1$Ahora_concentrarse[DB_1$Ahora_concentrarse=="3 (Nunca)"]<- "3"
 DB_1$Ahora_concentrarse[DB_1$Ahora_concentrarse=="No contesta / No aplica"]<- "NA"
 DB_1$Ahora_concentrarse[DB_1$Ahora_concentrarse=="no_contesta___no_aplica"]<- "NA"
 
-#Perder el sueño
+#Perder el sueÃ±o
 table(DB_1$Ahora_sueno)
 #Siempre
 DB_1$Ahora_sueno[DB_1$Ahora_sueno=="0 (Sempre)"]<- "0"
@@ -1809,7 +1809,7 @@ DB_1$Ahora_sueno[DB_1$Ahora_sueno=="3__nunca"]<- "3"
 DB_1$Ahora_sueno[DB_1$Ahora_sueno=="No contesta / No aplica"]<- "NA"
 DB_1$Ahora_sueno[DB_1$Ahora_sueno=="no_contesta___no_aplica"]<- "NA"
 
-#Papel útil en la vida
+#Papel Ãºtil en la vida
 table(DB_1$Ahora_papel)
 #Siempre
 DB_1$Ahora_papel[DB_1$Ahora_papel=="0 (Sempre)"]<- "0"
@@ -1837,7 +1837,7 @@ DB_1$Ahora_decisiones[DB_1$Ahora_decisiones=="3__nunca"]<- "3"
 DB_1$Ahora_decisiones[DB_1$Ahora_decisiones=="No contesta / No aplica"]<- "NA"
 DB_1$Ahora_decisiones[DB_1$Ahora_decisiones=="no_contesta___no_aplica"]<- "NA"
 
-#Agobiada y en tensión
+#Agobiada y en tensiÃ³n
 table(DB_1$Ahora_tension)
 #Siempre
 DB_1$Ahora_tension[DB_1$Ahora_tension=="0 (Sempre)"]<- "0"
@@ -1958,7 +1958,7 @@ DB_1$Ahora_concentrarse[DB_1$Ahora_concentrarse=="NA"]<- NA
 
 DB_1$Ahora_concentrarse <- as.numeric(DB_1$Ahora_concentrarse)
 
-#* sueño = negativo
+#* sueÃ±o = negativo
 table(DB_1$Ahora_sueno)
 DB_1$Ahora_sueno[DB_1$Ahora_sueno=="0"]<- "1"
 DB_1$Ahora_sueno[DB_1$Ahora_sueno=="2"]<- "0"
@@ -2061,7 +2061,7 @@ DB_1$Ahora_feliz <- as.numeric(DB_1$Ahora_feliz)
 summary(DB_1)
 
 DB_1_1 <- DB_1
-# En tercer lugar, sumamos todas en una única variable
+# En tercer lugar, sumamos todas en una Ãºnica variable
 library(dbplyr)
 DB_1 <- DB_1 %>% dplyr::mutate(Ahora_GHQ = (Ahora_concentrarse + Ahora_papel + Ahora_decisiones + Ahora_disfrutar + Ahora_problemas + Ahora_feliz + Ahora_sueno + Ahora_tension + Ahora_superar + Ahora_deprimida + Ahora_confianza + Ahora_valer))
 head(DB_1[,c("Concentrarse","Papel", "Decisiones", "Disfrutar", "Problemas", "Feliz", "Sueno", "Tension", "Superar", "Deprimida", "Confianza", "Valer")]) #we do this to check that it has worked well
@@ -2073,7 +2073,7 @@ describe(DB_1$Ahora_GHQ2)
 table(DB_1$Ahora_GHQ2)
 
 
-####### CALIDAD DEL SUEÑO
+####### CALIDAD DEL SUEÃ‘O
 
 # ANTES
 table(DB_1$Antes_dormir)
@@ -2093,9 +2093,9 @@ DB_1$Ahora_dormir <- as.numeric(DB_1$Ahora_dormir)
 
 DB_FPBCN <- DB_1
 
-## GÉNERO
+## GÃ‰NERO
 table(DB_1$Genero)
-DB_1$Genero[DB_1$Genero=="Femení"]<- "Femenino"
+DB_1$Genero[DB_1$Genero=="FemenÃ­"]<- "Femenino"
 DB_1$Genero[DB_1$Genero=="femenino"]<- "Femenino"
 DB_1$Genero[DB_1$Genero=="No binari/altre: (especificar)_____________"]<- "No binario"
 DB_1$Genero[DB_1$Genero=="No binario/otro: (especificar)_____________"]<- "No binario"
@@ -2108,9 +2108,9 @@ table(DB_1$Nacimiento)
 DB_1$Nacimiento[DB_1$Nacimiento=="_ndia"]<- "India"
 DB_1$Nacimiento[DB_1$Nacimiento=="alemania"]<- "Alemania"
 DB_1$Nacimiento[DB_1$Nacimiento=="bangladesh"]<- "Bangladesh "
-DB_1$Nacimiento[DB_1$Nacimiento=="belgica"]<- "Bélgica"
-DB_1$Nacimiento[DB_1$Nacimiento=="Belgica"]<- "Bélgica"
-DB_1$Nacimiento[DB_1$Nacimiento=="Canada"]<- "Canadá"
+DB_1$Nacimiento[DB_1$Nacimiento=="belgica"]<- "BÃ©lgica"
+DB_1$Nacimiento[DB_1$Nacimiento=="Belgica"]<- "BÃ©lgica"
+DB_1$Nacimiento[DB_1$Nacimiento=="Canada"]<- "CanadÃ¡"
 DB_1$Nacimiento[DB_1$Nacimiento=="Chile\r\n"]<- "Chile"
 DB_1$Nacimiento[DB_1$Nacimiento=="china"]<- "China"
 DB_1$Nacimiento[DB_1$Nacimiento=="Clara de marfil"]<- "Costa de Marfil"
@@ -2118,32 +2118,32 @@ DB_1$Nacimiento[DB_1$Nacimiento=="Columbia"]<- "Colombia"
 DB_1$Nacimiento[DB_1$Nacimiento=="Costa rica"]<- "Costa Rica"
 DB_1$Nacimiento[DB_1$Nacimiento=="El salvador"]<- "El Salvador"
 DB_1$Nacimiento[DB_1$Nacimiento=="Els Estats Units"]<- "EE.UU."
-DB_1$Nacimiento[DB_1$Nacimiento=="espana"]<- "España"
-DB_1$Nacimiento[DB_1$Nacimiento=="Espanya"]<- "España"
+DB_1$Nacimiento[DB_1$Nacimiento=="espana"]<- "EspaÃ±a"
+DB_1$Nacimiento[DB_1$Nacimiento=="Espanya"]<- "EspaÃ±a"
 DB_1$Nacimiento[DB_1$Nacimiento=="Filipinas\r\n"]<- "Filipinas"
-DB_1$Nacimiento[DB_1$Nacimiento=="França"]<- "Francia"
+DB_1$Nacimiento[DB_1$Nacimiento=="FranÃ§a"]<- "Francia"
 DB_1$Nacimiento[DB_1$Nacimiento=="francia"]<- "Francia"
 DB_1$Nacimiento[DB_1$Nacimiento=="holanda"]<- "Holanda"
-DB_1$Nacimiento[DB_1$Nacimiento=="Hungria"]<- "Hungría"
-DB_1$Nacimiento[DB_1$Nacimiento=="hungria"]<- "Hungría"
+DB_1$Nacimiento[DB_1$Nacimiento=="Hungria"]<- "HungrÃ­a"
+DB_1$Nacimiento[DB_1$Nacimiento=="hungria"]<- "HungrÃ­a"
 DB_1$Nacimiento[DB_1$Nacimiento=="italia"]<- "Italia"
-DB_1$Nacimiento[DB_1$Nacimiento=="Italia España"]<- "España"
+DB_1$Nacimiento[DB_1$Nacimiento=="Italia EspaÃ±a"]<- "EspaÃ±a"
 DB_1$Nacimiento[DB_1$Nacimiento=="Los Estados Unidos"]<- "EE.UU."
 DB_1$Nacimiento[DB_1$Nacimiento=="los_estados_unidos"]<- "EE.UU."
 DB_1$Nacimiento[DB_1$Nacimiento=="estados_unidos"]<- "EE.UU."
 DB_1$Nacimiento[DB_1$Nacimiento=="marruecos"]<- "Marruecos"
-DB_1$Nacimiento[DB_1$Nacimiento=="mexico"]<- "México"
-DB_1$Nacimiento[DB_1$Nacimiento=="Mexico"]<- "México"
+DB_1$Nacimiento[DB_1$Nacimiento=="mexico"]<- "MÃ©xico"
+DB_1$Nacimiento[DB_1$Nacimiento=="Mexico"]<- "MÃ©xico"
 DB_1$Nacimiento[DB_1$Nacimiento=="No contesta / No aplica"]<- "NA"
-DB_1$Nacimiento[DB_1$Nacimiento=="pakistan"]<- "Pakistán"
-DB_1$Nacimiento[DB_1$Nacimiento=="pakist_n"]<- "Pakistán"
-DB_1$Nacimiento[DB_1$Nacimiento=="Reino Unido España"]<- "España"
+DB_1$Nacimiento[DB_1$Nacimiento=="pakistan"]<- "PakistÃ¡n"
+DB_1$Nacimiento[DB_1$Nacimiento=="pakist_n"]<- "PakistÃ¡n"
+DB_1$Nacimiento[DB_1$Nacimiento=="Reino Unido EspaÃ±a"]<- "EspaÃ±a"
 DB_1$Nacimiento[DB_1$Nacimiento=="reino_unido"]<- "Reino Unido"
-DB_1$Nacimiento[DB_1$Nacimiento=="rep_dominicana"]<- "República Dominicana"
-DB_1$Nacimiento[DB_1$Nacimiento=="Republica Dominicana"]<- "República Dominicana"
-DB_1$Nacimiento[DB_1$Nacimiento=="Republica Checa"]<- "República Checa"
+DB_1$Nacimiento[DB_1$Nacimiento=="rep_dominicana"]<- "RepÃºblica Dominicana"
+DB_1$Nacimiento[DB_1$Nacimiento=="Republica Dominicana"]<- "RepÃºblica Dominicana"
+DB_1$Nacimiento[DB_1$Nacimiento=="Republica Checa"]<- "RepÃºblica Checa"
 DB_1$Nacimiento[DB_1$Nacimiento=="suiza"]<- "Suiza"
-DB_1$Nacimiento[DB_1$Nacimiento=="Índia"]<- "India"
+DB_1$Nacimiento[DB_1$Nacimiento=="Ãndia"]<- "India"
 DB_1$Nacimiento[DB_1$Nacimiento=="india"]<- "India"
 DB_1$Nacimiento[DB_1$Nacimiento=="Russia"]<- "Rusia"
 DB_1$Nacimiento[DB_1$Nacimiento=="rusia"]<- "Rusia"
@@ -2156,16 +2156,16 @@ DB1_8<-DB_1
 DB_1$ID[DB_1$Nacimiento=="otro__especificar"]
 
 
-#esto nos dice qué id (es decir, que participantes) respondieron "otro" en la pregunta nacimiento
+#esto nos dice quÃ© id (es decir, que participantes) respondieron "otro" en la pregunta nacimiento
 
-#Cuando los tienes identificados (ID), miras qué han respondido en Nacimiento_otro.
+#Cuando los tienes identificados (ID), miras quÃ© han respondido en Nacimiento_otro.
 #La respuesta que hayan puesto va a sustituir a la de "otro" en Nacimiento
 
 DB_1$Nacimiento_otro[DB_1$ID=="110065915"]
 DB_1$Nacimiento[DB_1$ID=="110065915"]<-"Holanda"
 
 DB_1$Nacimiento_otro[DB_1$ID=="101830971"] 
-DB_1$Nacimiento[DB_1$ID=="101830971"] <-"Hungría"
+DB_1$Nacimiento[DB_1$ID=="101830971"] <-"HungrÃ­a"
 
 DB_1$Nacimiento_otro[DB_1$ID=="102218486"]  
 DB_1$Nacimiento[DB_1$ID=="102218486"]  <-"Turquia"
@@ -2198,20 +2198,20 @@ table(DB_1$Nacimiento)
 table(DB_1$Estudios)
 #Ninguno
 DB_1$Estudios[DB_1$Estudios=="no_s__leer_ni_escribir"]<- "Ninguno"
-DB_1$Estudios[DB_1$Estudios=="No sé leer ni escribir."]<- "Ninguno"
+DB_1$Estudios[DB_1$Estudios=="No sÃ© leer ni escribir."]<- "Ninguno"
 
 #Primarios incompletos
-DB_1$Estudios[DB_1$Estudios=="Primaris incomplets: sé llegir i escriure sense haver finalitzat l'educació primària."]<- "Primarios incompletos"
+DB_1$Estudios[DB_1$Estudios=="Primaris incomplets: sÃ© llegir i escriure sense haver finalitzat l'educaciÃ³ primÃ ria."]<- "Primarios incompletos"
 DB_1$Estudios[DB_1$Estudios=="primarios_incom"]<- "Primarios incompletos"
-DB_1$Estudios[DB_1$Estudios=="Primarios incompletos: sé leer ni escribir sin haber finalizado la educación primaria."]<- "Primarios incompletos"
+DB_1$Estudios[DB_1$Estudios=="Primarios incompletos: sÃ© leer ni escribir sin haber finalizado la educaciÃ³n primaria."]<- "Primarios incompletos"
 #Primarios
 DB_1$Estudios[DB_1$Estudios=="primarios"]<- "Primarios"
 DB_1$Estudios[DB_1$Estudios=="Primarios completos: primaria LOGSE completa o cinco cursos aprobados d'EGB."]<- "Primarios"
-DB_1$Estudios[DB_1$Estudios=="Primaris complets: primària LOGSE completa o cinc cursos aprovats d'EGB."]<- "Primarios"
+DB_1$Estudios[DB_1$Estudios=="Primaris complets: primÃ ria LOGSE completa o cinc cursos aprovats d'EGB."]<- "Primarios"
 #Secundarios
 DB_1$Estudios[DB_1$Estudios=="secundarios"]<- "Secundarios"
-DB_1$Estudios[DB_1$Estudios=="Primera etapa d'educació secundaria: graduat escolar, batxillerat elemental, EGB o ESO completa."]<- "Secundarios"
-DB_1$Estudios[DB_1$Estudios=="Primera etapa de educación secundaria: graduado escolar, bachillerato elemental, EGB o ESO completa."]<- "Secundarios"
+DB_1$Estudios[DB_1$Estudios=="Primera etapa d'educaciÃ³ secundaria: graduat escolar, batxillerat elemental, EGB o ESO completa."]<- "Secundarios"
+DB_1$Estudios[DB_1$Estudios=="Primera etapa de educaciÃ³n secundaria: graduado escolar, bachillerato elemental, EGB o ESO completa."]<- "Secundarios"
 #Bachillerato
 DB_1$Estudios[DB_1$Estudios=="bachillerato"]<- "Bachillerato"
 DB_1$Estudios[DB_1$Estudios=="Bachillerato: Bachillerato superior, BUP, bachillerato plan nuevo, PREU o COU."]<- "Bachillerato"
@@ -2219,34 +2219,34 @@ DB_1$Estudios[DB_1$Estudios=="bachillerato__bachillerato_superior__bup"]<- "Bach
 DB_1$Estudios[DB_1$Estudios=="Batxillerat: Batxillerat superior, BUP, batxillerat pla nou, PREU o COU."]<- "Bachillerato"
 #FP medio
 DB_1$Estudios[DB_1$Estudios=="fp_de_grado_medio__oficial_a_industrial_"]<- "FP medio"
-DB_1$Estudios[DB_1$Estudios=="FP de grau mitjà: Oficialia industrial, FPI, cicles formatius de grau mitjà."]<- "FP medio"
-DB_1$Estudios[DB_1$Estudios=="FP de grado medio: Oficialía industrial, FPI, ciclos formativos de grado medio."]<- "FP medio"
+DB_1$Estudios[DB_1$Estudios=="FP de grau mitjÃ : Oficialia industrial, FPI, cicles formatius de grau mitjÃ ."]<- "FP medio"
+DB_1$Estudios[DB_1$Estudios=="FP de grado medio: OficialÃ­a industrial, FPI, ciclos formativos de grado medio."]<- "FP medio"
 #FP superior
 DB_1$Estudios[DB_1$Estudios=="fp_superior"]<- "FP superior"
-DB_1$Estudios[DB_1$Estudios=="FP de grado superior: maestría industrial, FPII, ciclos formativos de grado superior"]<- "FP superior"
+DB_1$Estudios[DB_1$Estudios=="FP de grado superior: maestrÃ­a industrial, FPII, ciclos formativos de grado superior"]<- "FP superior"
 DB_1$Estudios[DB_1$Estudios=="FP de grau superior: mestria industrial, FPII, cicles formatius de grau superior"]<- "FP superior"
 #Universitarios primer ciclo
 DB_1$Estudios[DB_1$Estudios=="universitarios_pc"]<- "Universitarios PC"
-DB_1$Estudios[DB_1$Estudios=="Enseñanzas universitarias de primer ciclo: diplomatura universitaria, arquitectura e ingeniería técnica"]<- "Universitarios PC"
-DB_1$Estudios[DB_1$Estudios=="Ensenyança universitària de primer cicle: diplomatura universitària, arquitectura enginyeria tècnica"]<- "Universitarios PC"
+DB_1$Estudios[DB_1$Estudios=="EnseÃ±anzas universitarias de primer ciclo: diplomatura universitaria, arquitectura e ingenierÃ­a tÃ©cnica"]<- "Universitarios PC"
+DB_1$Estudios[DB_1$Estudios=="EnsenyanÃ§a universitÃ ria de primer cicle: diplomatura universitÃ ria, arquitectura enginyeria tÃ¨cnica"]<- "Universitarios PC"
 DB_1$Estudios[DB_1$Estudios=="ense_anzas_universitarias_de_primer_cicl"]<- "Universitarios PC"
 #Universitarios segundo ciclo
 DB_1$Estudios[DB_1$Estudios=="universitarios_sc"]<- "Universitarios SC"
 DB_1$Estudios[DB_1$Estudios=="ense_anzas_universitarias_de_segundo_cic"]<- "Universitarios SC"
-DB_1$Estudios[DB_1$Estudios=="Ensenyança universitària de segon cicle: grau, llicenciatura, arquitectura y enginyeria"]<- "Universitarios SC"
-DB_1$Estudios[DB_1$Estudios=="Enseñanzas universitarias de segundo ciclo: grado, licenciatura, arquitectura y ingeniería"]<- "Universitarios SC"
+DB_1$Estudios[DB_1$Estudios=="EnsenyanÃ§a universitÃ ria de segon cicle: grau, llicenciatura, arquitectura y enginyeria"]<- "Universitarios SC"
+DB_1$Estudios[DB_1$Estudios=="EnseÃ±anzas universitarias de segundo ciclo: grado, licenciatura, arquitectura y ingenierÃ­a"]<- "Universitarios SC"
 #Universitarios posgrado
 DB_1$Estudios[DB_1$Estudios=="universitarios_pg"]<- "Universitarios PG"
-DB_1$Estudios[DB_1$Estudios=="Estudios universitarios de doctorado, postgrado, máster, MIR o análogo."]<- "Universitarios PG"
+DB_1$Estudios[DB_1$Estudios=="Estudios universitarios de doctorado, postgrado, mÃ¡ster, MIR o anÃ¡logo."]<- "Universitarios PG"
 DB_1$Estudios[DB_1$Estudios=="estudios_universitarios_de_doctorado__po"]<- "Universitarios PG"
-DB_1$Estudios[DB_1$Estudios=="Estudis universitaris de doctorat, postgrau, màster, MIR o anàloga."]<- "Universitarios PG"
+DB_1$Estudios[DB_1$Estudios=="Estudis universitaris de doctorat, postgrau, mÃ ster, MIR o anÃ loga."]<- "Universitarios PG"
 #No aplica
 DB_1$Estudios[DB_1$Estudios=="No contesta / No aplica"]<- "NA"
 
 ## CHECK
 table(DB_1$Estudios)
 
-##### SITUACIÓN LABORAL
+##### SITUACIÃ“N LABORAL
 # ANTES
 table(DB_1$Antes_laboral)
 #* Trabajo a tiempo completo
@@ -2267,7 +2267,7 @@ DB_1$Antes_laboral[DB_1$Antes_laboral=="Treballs casuals"]<- "Trabajo casual"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="cuidando"]<- "Cuidando"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="Cuidando de la casa/familia"]<- "Cuidando"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="cuidando_de_la_casa_familia"]<- "Cuidando"
-DB_1$Antes_laboral[DB_1$Antes_laboral=="Tenint cura de la casa/família"]<- "Cuidando"
+DB_1$Antes_laboral[DB_1$Antes_laboral=="Tenint cura de la casa/famÃ­lia"]<- "Cuidando"
 #* Desempleada
 DB_1$Antes_laboral[DB_1$Antes_laboral=="Aturat"]<- "Desempleada"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="desempleado"]<- "Desempleada"
@@ -2279,12 +2279,12 @@ DB_1$Antes_laboral[DB_1$Antes_laboral=="jubilado"]<- "Jubilada"
 #* Estudiante
 DB_1$Antes_laboral[DB_1$Antes_laboral=="estudiante"]<- "Estudiante"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="en_pr_cticas_estudiante"]<- "Estudiante"
-DB_1$Antes_laboral[DB_1$Antes_laboral=="En pràctiques/estudiant"]<- "Estudiante"
-DB_1$Antes_laboral[DB_1$Antes_laboral=="En prácticas/estudiante"]<- "Estudiante"
+DB_1$Antes_laboral[DB_1$Antes_laboral=="En prÃ ctiques/estudiant"]<- "Estudiante"
+DB_1$Antes_laboral[DB_1$Antes_laboral=="En prÃ¡cticas/estudiante"]<- "Estudiante"
 #* Incapaz de trabajar por motivos de salud
 DB_1$Antes_laboral[DB_1$Antes_laboral=="incapaz_salud"]<- "Incapaz por salud"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="Incapaz de trabajar por razones de salud"]<- "Incapaz por salud"
-DB_1$Antes_laboral[DB_1$Antes_laboral=="Incapaç de treballar por motius de salut"]<- "Incapaz por salud"
+DB_1$Antes_laboral[DB_1$Antes_laboral=="IncapaÃ§ de treballar por motius de salut"]<- "Incapaz por salud"
 #* No contesta
 DB_1$Antes_laboral[DB_1$Antes_laboral=="no_contesta___no_aplica"]<- "NA"
 DB_1$Antes_laboral[DB_1$Antes_laboral=="No contesta / No aplica"]<- "NA"
@@ -2311,7 +2311,7 @@ DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Treballs casuals"]<- "Trabajo casual"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="cuidando"]<- "Cuidando"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Cuidando de la casa/familia"]<- "Cuidando"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="cuidando_de_la_casa_familia"]<- "Cuidando"
-DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Tenint cura de la casa/família"]<- "Cuidando"
+DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Tenint cura de la casa/famÃ­lia"]<- "Cuidando"
 #* Desempleada
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Aturat"]<- "Desempleada"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="desempleado"]<- "Desempleada"
@@ -2323,12 +2323,12 @@ DB_1$Ahora_laboral[DB_1$Ahora_laboral=="jubilado"]<- "Jubilada"
 #* Estudiante
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="estudiante"]<- "Estudiante"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="en_pr_cticas_estudiante"]<- "Estudiante"
-DB_1$Ahora_laboral[DB_1$Ahora_laboral=="En pràctiques/estudiant"]<- "Estudiante"
-DB_1$Ahora_laboral[DB_1$Ahora_laboral=="En prácticas/estudiante"]<- "Estudiante"
+DB_1$Ahora_laboral[DB_1$Ahora_laboral=="En prÃ ctiques/estudiant"]<- "Estudiante"
+DB_1$Ahora_laboral[DB_1$Ahora_laboral=="En prÃ¡cticas/estudiante"]<- "Estudiante"
 #* Incapaz de trabajar por motivos de salud
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="incapaz_salud"]<- "Incapaz por salud"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Incapaz de trabajar por razones de salud"]<- "Incapaz por salud"
-DB_1$Ahora_laboral[DB_1$Ahora_laboral=="Incapaç de treballar por motius de salut"]<- "Incapaz por salud"
+DB_1$Ahora_laboral[DB_1$Ahora_laboral=="IncapaÃ§ de treballar por motius de salut"]<- "Incapaz por salud"
 #* No contesta
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="No contesta / No aplica"]<- "NA"
 DB_1$Ahora_laboral[DB_1$Ahora_laboral=="no_contesta___no_aplica"]<- "NA"
@@ -2337,18 +2337,18 @@ DB_1$Ahora_laboral[DB_1$Ahora_laboral=="no_contesta___no_aplica"]<- "NA"
 table(DB_1$Ahora_laboral)
 
 
-##### SITUACIÓN ECONÓMICA
+##### SITUACIÃ“N ECONÃ“MICA
 
 # ANTES
 table(DB_1$Antes_monetaria)
 #*Comodamente
-DB_1$Antes_monetaria[DB_1$Antes_monetaria=="comodamente"]<- "Cómodamente"
-DB_1$Antes_monetaria[DB_1$Antes_monetaria=="viv_a_holgadamente"]<- "Cómodamente"
-DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Vive cómodamente"]<- "Cómodamente"
-DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Vivia còmodament"]<- "Cómodamente"
+DB_1$Antes_monetaria[DB_1$Antes_monetaria=="comodamente"]<- "CÃ³modamente"
+DB_1$Antes_monetaria[DB_1$Antes_monetaria=="viv_a_holgadamente"]<- "CÃ³modamente"
+DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Vive cÃ³modamente"]<- "CÃ³modamente"
+DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Vivia cÃ²modament"]<- "CÃ³modamente"
 #*Lo justo
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="option_2"]<- "Lo justo"
-DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Tenía lo justo para vivir"]<- "Lo justo"
+DB_1$Antes_monetaria[DB_1$Antes_monetaria=="TenÃ­a lo justo para vivir"]<- "Lo justo"
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="tiene_lo_justo_para_vivir"]<- "Lo justo"
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Tenia el just per viure"]<- "Lo justo"
 
@@ -2356,7 +2356,7 @@ DB_1$Antes_monetaria[DB_1$Antes_monetaria=="Tenia el just per viure"]<- "Lo just
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="no_llega"]<- "No llega"
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="option_1"]<- "Lo justo"
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="No podia arribar a final de mes"]<- "Lo justo"
-DB_1$Antes_monetaria[DB_1$Antes_monetaria=="No podía llegar a fin de mes"]<- "Lo justo"
+DB_1$Antes_monetaria[DB_1$Antes_monetaria=="No podÃ­a llegar a fin de mes"]<- "Lo justo"
 #*NA
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="no_sabe_no_contesta"]<- "NA"
 DB_1$Antes_monetaria[DB_1$Antes_monetaria=="No sap/no contesta"]<- "NA"
@@ -2371,15 +2371,15 @@ table(DB_1$Antes_monetaria)
 # AHORA
 table(DB_1$Ahora_monetaria)
 #*Comodamente
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="comodamente"]<- "Cómodamente"
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="viv_a_holgadamente"]<- "Cómodamente"
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="Vive cómodamente"]<- "Cómodamente"
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="Vivia còmodament"]<- "Cómodamente"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="comodamente"]<- "CÃ³modamente"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="viv_a_holgadamente"]<- "CÃ³modamente"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="Vive cÃ³modamente"]<- "CÃ³modamente"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="Vivia cÃ²modament"]<- "CÃ³modamente"
 #*Lo justo
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="justo"]<- "Lo justo"
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="Tiene lo justo para vivir"]<- "Lo justo"
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="tiene_lo_justo_para_vivir"]<- "Lo justo"
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="Té el  just per viure"]<- "Lo justo"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="TÃ© el  just per viure"]<- "Lo justo"
 
 #*No llega
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="no_llega"]<- "No llega"
@@ -2388,8 +2388,8 @@ DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="No pot arribar a final de mes"]<- "L
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="No puede llegar a fin de mes"]<- "Lo justo"
 #*NA
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="no_hay_informaci_n_no_sabe"]<- "NA"
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="No hi ha informació/no sap"]<- "NA"
-DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="No hay información/no sabe"]<- "NA"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="No hi ha informaciÃ³/no sap"]<- "NA"
+DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="No hay informaciÃ³n/no sabe"]<- "NA"
 DB_1$Ahora_monetaria[DB_1$Ahora_monetaria=="NA"] <- NA
 ## CHECK
 table(DB_1$Ahora_monetaria)
@@ -2405,25 +2405,25 @@ summary(DB_1)
 
 DB_FPBCN <- DB_1
 
-###### CATEGORIZAMOS LAS VARIABLES SOCIOEDEMOGRÁFICAS ######
+###### CATEGORIZAMOS LAS VARIABLES SOCIOEDEMOGRÃFICAS ######
 describe(DB_1)
 # NACIONALIDAD
 describe(DB_1$Nacimiento)
 summary(DB_1$Nacimiento)
 table(DB_1$Nacimiento)
 
-DB_1$Nacimiento_2[DB_1$Nacimiento=="España"] <- "Global North"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="EspaÃ±a"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Alemania"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Australia"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Austria"] <- "Global North"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="Bélgica"] <- "Global North"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="BÃ©lgica"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Bulgaria"] <- "Global North"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="Canadá"] <- "Global North"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="CanadÃ¡"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="EE.UU."] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Francia"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Georgia"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Holanda"] <- "Global North"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="Hungría"] <- "Global North"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="HungrÃ­a"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Israel"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Italia"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Japon"] <- "Global North"
@@ -2432,7 +2432,7 @@ DB_1$Nacimiento_2[DB_1$Nacimiento=="Noruega"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Polonia"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Portugal"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Reino Unido"] <- "Global North"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="República Checa"] <- "Global North"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="RepÃºblica Checa"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Rumania"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Rusia"] <- "Global North"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Suecia"] <- "Global North"
@@ -2461,13 +2461,13 @@ DB_1$Nacimiento_2[DB_1$Nacimiento=="Honduras"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="India"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Libano"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Marruecos"] <- "Global South"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="México"] <- "Global South"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="MÃ©xico"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Nicaragua"] <- "Global South"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="Pakistán"] <- "Global South"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="PakistÃ¡n"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Paraguay"] <- "Global South"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="Perú"] <- "Global South"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="PerÃº"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Puerto Rico"] <- "Global South"
-DB_1$Nacimiento_2[DB_1$Nacimiento=="República Dominicana"] <- "Global South"
+DB_1$Nacimiento_2[DB_1$Nacimiento=="RepÃºblica Dominicana"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Senegal"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Taiwan"] <- "Global South"
 DB_1$Nacimiento_2[DB_1$Nacimiento=="Uruguay"] <- "Global South"
@@ -2499,14 +2499,14 @@ DB_1$Estudios2[DB_1$Estudios=="Ninguno"] <- "No universitarios"
 summarytools::freq(DB_1$Estudios2)
 table(DB_1$Estudios2)
 
-### TRANSFORMAR LAS VARIABLES DE SITUACIÓN ECONÓMICA EN BINARIAS
-DB_1$Antes_monetaria2[DB_1$Antes_monetaria=="Cómodamente"] <- "0"
+### TRANSFORMAR LAS VARIABLES DE SITUACIÃ“N ECONÃ“MICA EN BINARIAS
+DB_1$Antes_monetaria2[DB_1$Antes_monetaria=="CÃ³modamente"] <- "0"
 DB_1$Antes_monetaria2[DB_1$Antes_monetaria=="No llega"] <- "1"
 DB_1$Antes_monetaria2[DB_1$Antes_monetaria=="Lo justo"] <- "1"
 table(DB_1$Antes_monetaria2)
 summarytools::freq(DB_1$Antes_monetaria2)
 
-DB_1$Ahora_monetaria2[DB_1$Ahora_monetaria=="Cómodamente"] <- "0"
+DB_1$Ahora_monetaria2[DB_1$Ahora_monetaria=="CÃ³modamente"] <- "0"
 DB_1$Ahora_monetaria2[DB_1$Ahora_monetaria=="No llega"] <- "1"
 DB_1$Ahora_monetaria2[DB_1$Ahora_monetaria=="Lo justo"] <- "1"
 
@@ -2514,7 +2514,7 @@ summarytools::freq(DB_1$Ahora_monetaria2)
 
 DB_2_2 <- DB_1
 
-### TRANSFORMAR LAS VARIABLES DE SITUACIÓN LABORAL EN BINARIAS
+### TRANSFORMAR LAS VARIABLES DE SITUACIÃ“N LABORAL EN BINARIAS
 DB_1$Antes_laboral2[DB_1$Antes_laboral=="Trabajo completo"] <- "0"
 DB_1$Antes_laboral2[DB_1$Antes_laboral=="Trabajo parcial"] <- "0"
 DB_1$Antes_laboral2[DB_1$Antes_laboral=="Trabajo casual"] <- "1"
@@ -2591,7 +2591,7 @@ DB_1$Visitas_B[DB_1$Cambios_visitas_B == "Disminuido mucho"] <- "0"
 table(DB_1$Visitas_B)
 summarytools::freq(DB_1$Visitas_B)
 
-# ESPACIOS A MÁS DE 15 MIN
+# ESPACIOS A MÃS DE 15 MIN
 table(DB_1$Cambios_visitas_C)
 summarytools::freq(DB_1$Cambios_visitas_C)
 
@@ -2646,7 +2646,7 @@ DB_1$Tiempo_B[DB_1$Cambios_tiempo_B == "Disminuido mucho"] <- "0"
 table(DB_1$Tiempo_B)
 summarytools::freq(DB_1$Tiempo_B)
 
-# ESPACIOS A MÁS DE 15 MIN
+# ESPACIOS A MÃS DE 15 MIN
 table(DB_1$Cambios_tiempo_C)
 summarytools::freq(DB_1$Cambios_tiempo_C)
 
@@ -2675,7 +2675,7 @@ summarytools::freq(DB_1$Tiempo_D)
 DB_FPBCN <- DB_1
 DB_2 <- DB_1
 
-# CATEGORIZACIÓN DE LOS ESPACIOS A = SUPERILLA/PLAYA, B = MENOS DE 15 MIN, C = MÁS DE 15 MIN, D = LÍMITES DE LA CIUDAD
+# CATEGORIZACIÃ“N DE LOS ESPACIOS A = SUPERILLA/PLAYA, B = MENOS DE 15 MIN, C = MÃS DE 15 MIN, D = LÃMITES DE LA CIUDAD
 
 # SUPERILLA/PLAYA
 DB_2 <- DB_2 %>%  dplyr::mutate(Cambios_A = case_when( 
@@ -2734,9 +2734,9 @@ table(DB_2$Cambios_D)
 summarytools::freq(DB_2$Cambios_D)
 
 ### CREAR VARIABLE QUE UNE ESPACIOS A Y B ###
-# A = SÓLO REPORTAN DISMINUCIÓN DEL USO DE LA SUPERILLA Y LOS ESPACIOS <15 MIN
-# B = SÓLO REPORTAN AUMENTO/MANTENIMIENTO DEL USO DE LA SUPERILLA Y LOS ESPACIOS < 15 MIN
-# C = EN UN ESPACIO REPORTAN AUMENTO/MANTENIMIENTO Y EN EL OTRO DISMINUCIÓN
+# A = SÃ“LO REPORTAN DISMINUCIÃ“N DEL USO DE LA SUPERILLA Y LOS ESPACIOS <15 MIN
+# B = SÃ“LO REPORTAN AUMENTO/MANTENIMIENTO DEL USO DE LA SUPERILLA Y LOS ESPACIOS < 15 MIN
+# C = EN UN ESPACIO REPORTAN AUMENTO/MANTENIMIENTO Y EN EL OTRO DISMINUCIÃ“N
 
 DB_2 <- DB_2 %>%  dplyr::mutate(Cambios_AB = case_when( 
   Cambios_B == "A" & Cambios_A == "A" ~ "A",
@@ -2753,7 +2753,7 @@ DB_2 <- DB_2 %>%  dplyr::mutate(Cambios_AB = case_when(
 table(DB_2$Cambios_AB)
 summarytools::freq(DB_2$Cambios_AB)
 
-#VAMOS A CONSTUIR LA OTRA PARCIAL (CD) PARA UNIRLA DESPUÉS A LA AB
+#VAMOS A CONSTUIR LA OTRA PARCIAL (CD) PARA UNIRLA DESPUÃ‰S A LA AB
 DB_2 <- DB_2 %>%  dplyr::mutate(Cambios_CD = case_when( 
   Cambios_C == "A" & Cambios_D == "A" ~ "A",
   Cambios_C == "B" & Cambios_D == "B" ~ "B",
@@ -2788,15 +2788,15 @@ DB_2 <- DB_2 %>%  dplyr::mutate(Cambios_ABCD = case_when(
   Cambios_CD == "B" & Cambios_AB == "A" ~ "C",
   TRUE ~ "C"
 ))
-#he quitado las líneas sobre is.na porque ya no hay NA en las variables AB y CD
+#he quitado las lÃ­neas sobre is.na porque ya no hay NA en las variables AB y CD
 
 table(DB_2$Cambios_ABCD)
 summarytools::freq(DB_2$Cambios_ABCD)
 
-## CONSTRUIR LAS VARIABLES DE CAMBIO DE GENTRIFICACIÓN Y TURISTIFICACIÓN
+## CONSTRUIR LAS VARIABLES DE CAMBIO DE GENTRIFICACIÃ“N Y TURISTIFICACIÃ“N
 # Restamos los valores pre a los post para ver la diferencia 
 
-# GENTRIFICACIÓN
+# GENTRIFICACIÃ“N
 
 DB_1 <- DB_1 %>% dplyr::mutate(Dif_NCGS = (Ahora_NCGS - Antes_NCGS))
 head(DB_1[,c("Dif_NCGS", "Antes_NCGS", "Ahora_NCGS")])
@@ -2804,7 +2804,7 @@ head(DB_1[,c("Dif_NCGS", "Antes_NCGS", "Ahora_NCGS")])
 DB_1$Dif_NCGS_2 <-cut(DB_1$Dif_NCGS, breaks = c(-10, -0.0000001, 0, 10), labels = c("Reduced", "No change", "Increased")) 
 summarytools::freq(DB_1$Dif_NCGS_2)
 
-# TURISTIFICACIÓN
+# TURISTIFICACIÃ“N
 summary(DB_1$Ahora_turismo)
 DB_1 <- DB_1 %>% dplyr::mutate(Dif_Turismo = (Ahora_turismo - Antes_turismo))
 head(DB_1[,c("Dif_Turismo", "Ahora_turismo", "Antes_turismo")])
@@ -2821,19 +2821,28 @@ DB_1 <- DB_1[c(-161,-162),]
 
 DB_FPBCN <- DB_1
 
-# recategorizar las variables de diferencia en gentri y turis para que sean sólo dos categorías (disminución + aumento/no cambio)
-# gentrificación
+# recategorizar las variables de diferencia en gentri y turis para que sean sÃ³lo dos categorÃ­as (disminuciÃ³n + aumento/no cambio)
+# gentrificaciÃ³n
 DB_1$Dif_NCGS_1 <-cut(DB_1$Dif_NCGS, breaks = c(-10, 0, 10), labels = c("Reduced", "No change / Increased")) 
 summarytools::freq(DB_1$Dif_NCGS_1)
-# turistificación
+# turistificaciÃ³n
 DB_1$Dif_Turismo_1 <-cut(DB_1$Dif_Turismo, breaks = c(-10, 0, 10), labels = c("Reduced", "No change / Increased")) 
 summarytools::freq(DB_1$Dif_Turismo_1)
+
+DB_1<-DB_FPBCN
+#INVERTIR LA VARIABLE DE CALIDAD DEL SUEÃ‘O
+DB_1 <- DB_1 %>% dplyr::mutate(Antes_dormirInv  = (10 - Antes_dormir))
+head(DB_1[,c("Antes_dormirInv", "Antes_dormir")])
+DB_1 <- DB_1 %>% dplyr::mutate(Ahora_dormirInv  = (10 - Ahora_dormir))
+head(DB_1[,c("Ahora_dormirInv", "Ahora_dormir")])
+
+DB_FPBCN <- DB_1
 
 # DIVIDIMOS LA BASE POR BARRIOS
 DB_Barceloneta <- subset(DB_FPBCN, Barrio == "Barceloneta")
 DB_SA <- subset(DB_FPBCN, Barrio == "Sant Antoni")
 # Guardamos la base antes de eliminar las variables
-#aquí tendras que cambiar "dbSpanishclone_English" por el nombre de la db final que crees
+#aquÃ­ tendras que cambiar "dbSpanishclone_English" por el nombre de la db final que crees
 save(DB_FPBCN, file= "DB_FEMPUBLIC.RData") 
 save(DB_Barceloneta, file= "DB_Barceloneta.RData")
 save(DB_SA, file= "DB_SA.RData")
