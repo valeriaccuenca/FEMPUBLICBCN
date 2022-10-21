@@ -2836,8 +2836,8 @@ head(DB_1[,c("Antes_dormirInv", "Antes_dormir")])
 DB_1 <- DB_1 %>% dplyr::mutate(Ahora_dormirInv  = (10 - Ahora_dormir))
 head(DB_1[,c("Ahora_dormirInv", "Ahora_dormir")])
 
+# DESPUÉS DE HACER CUALQUIER CAMBIO, GUARDAMOS EN LA BASE DEDATOS FINAL (DB_FPBCN)
 DB_FPBCN <- DB_1
-
 # DIVIDIMOS LA BASE POR BARRIOS
 DB_Barceloneta <- subset(DB_FPBCN, Barrio == "Barceloneta")
 DB_SA <- subset(DB_FPBCN, Barrio == "Sant Antoni")
